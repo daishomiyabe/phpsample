@@ -24,7 +24,7 @@ class ArticlesController extends AppController
         if ($this->request->is('post')) {
             $article = $this->Articles->patchEntity($article, $this->request->getData());
 
-            // user_id の決め打ちは一時的なもので、あとで認証を構築する際に削除されます。
+            // user_id 縺ｮ豎ｺ繧∵遠縺｡縺ｯ荳譎ら噪縺ｪ繧ゅ�ｮ縺ｧ縲√≠縺ｨ縺ｧ隱崎ｨｼ繧呈ｧ狗ｯ峨☆繧矩圀縺ｫ蜑企勁縺輔ｌ縺ｾ縺吶�
             $article->user_id = 1;
 
             if ($this->Articles->save($article)) {
@@ -49,5 +49,16 @@ class ArticlesController extends AppController
 	    }
 
 	    $this->set('article', $article);
+	}
+	
+	public function delete($slug)
+	{
+	    $this->request->allowMethod(['post', 'delete']);
+
+	    $article = $this->Articles->findBySlug($slug)->firstOrFail();
+	    if ($this->Articles->delete($article)) {
+	        $this->Flash->success(__('The {0} article has been deleted.', $article->title));
+	        return $this->redirect(['action' => 'index']);
+	    }
 	}
 }
