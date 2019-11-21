@@ -1,13 +1,14 @@
 <!-- File: src/Template/Articles/index.ctp -->
 
-<h1>�L���ꗗ</h1>
+<h1>記事一覧</h1>
+<?= $this->Html->link('記事の追加', ['action' => 'add']) ?>
 <table>
     <tr>
-        <th>�^�C�g��</th>
-        <th>�쐬����</th>
+        <th>タイトル</th>
+        <th>作成日時</th>
     </tr>
 
-    <!-- �����ŁA$articles �N�G���[�I�u�W�F�N�g���J��Ԃ��āA�L���̏����o�͂��܂� -->
+    <!-- ここで、$articles クエリーオブジェクトを繰り返して、記事の情報を出力します -->
 
     <?php foreach ($articles as $article): ?>
     <tr>
