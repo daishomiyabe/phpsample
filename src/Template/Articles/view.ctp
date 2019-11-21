@@ -2,5 +2,5 @@
 
 <h1><?= h($article->title) ?></h1>
 <p><?= h($article->body) ?></p>
-<p><small>ì¬“úŽž: <?= $article->created->format(DATE_RFC850) ?></small></p>
+<p><small>ä½œæˆæ—¥æ™‚: <?= $article->created->format(DATE_RFC850) ?></small></p>
 <p><?= $this->Html->link('Edit', ['action' => 'edit', $article->slug]) ?></p>
