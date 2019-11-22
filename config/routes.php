@@ -21,6 +21,7 @@ use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
+use Cake\Core\Plugin;
 
 /**
  * The default class to use for all routes
@@ -102,3 +103,31 @@ Router::scope('/', function (RouteBuilder $routes) {
  * });
  * ```
  */
+
+// タグ付けられたアクションのために追加された新しいルート。
+// 末尾の `*` は、このアクションがパラメーターを渡されることを
+// CakePHP に伝えます。
+Router::scope(
+    '/articles',
+    ['controller' => 'Articles'],
+    function ($routes) {
+        $routes->connect('/tagged/*', ['action' => 'tags']);
+    }
+);
+
+Router::scope('/', function ($routes) {
+    // デフォルトの home と /pages/* ルートを接続。
+    $routes->connect('/', [
+        'controller' => 'Pages',
+        'action' => 'display', 'home'
+    ]);
+    $routes->connect('/pages/*', [
+        'controller' => 'Pages',
+        'action' => 'display'
+    ]);
+
+    // 規約に基づいたデフォルトルートを接続。
+    $routes->fallbacks();
+});
+
+Plugin::routes();
