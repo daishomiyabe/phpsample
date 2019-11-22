@@ -18,7 +18,7 @@ class ArticlesController extends AppController
 	    $this->set(compact('article'));
 	}
 	
-	 public function add()
+	public function add()
     {
         $article = $this->Articles->newEntity();
         if ($this->request->is('post')) {
@@ -33,6 +33,12 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('Unable to add your article.'));
         }
+        // タグのリストを取得
+        $tags = $this->Articles->Tags->find('list');
+
+        // ビューコンテキストに tags をセット
+        $this->set('tags', $tags);
+
         $this->set('article', $article);
     }
     
