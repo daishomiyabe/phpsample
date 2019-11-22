@@ -53,6 +53,7 @@ class AppController extends Controller
         //$this->loadComponent('Security');
         
         $this->loadComponent('Auth', [
+        	'authorize' => 'Controller',
         	'authenticate' =>[
         		'Form' => [
         			'fields' => [
@@ -65,22 +66,13 @@ class AppController extends Controller
 	        	'controller' => 'Users',
 	        	'action' => 'login'
 	        ],
-	        'authorize' => ['Controller'],
 	        'unauthorizedRedirect' => $this->referer()
 	    ]);
 	    $this->Auth->allow(['display','view','index']);
 
     }
     
-    public function isAuthorized($user = null){
-    	if(!$this->request->getParam('prefix')){
-    		return true;
-    	}
-    	
-    	if($this->request->getParam('prefix') === 'admin'){
-    		return (bool)($user['role'] === 'admin');
-    	}
-    	
+    public function isAuthorized($user){
     	return false;
     } 
 }
