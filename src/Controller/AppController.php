@@ -51,5 +51,48 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+        
+        $this->loadComponent('Auth', [
+        	'authenticate' =>[
+        		'Form' => [
+        			'fields' => [
+	        			'username' =>'email',
+	        			'password' =>'password'
+	        		]
+	        	]
+	        ],
+	        'loginAction' => [
+	        	'controller' => 'Users',
+	        	'action' => 'login'
+	        ],
+	        'authorize' => ['Controller'],
+	        'unauthorizedRedirect' => $this->referer()
+	    ]);
+	    $this->Auth->allow(['display','view','index']);
+
     }
+    
+    public function isAuthorized($user = null){
+    	if(!$this->request->getParam('prefix')){
+    		return true;
+    	}
+    	
+    	if($this->request->getParam('prefix') === 'admin'){
+    		return (bool)($user['role'] === 'admin');
+    	}
+    	
+    	return false;
+    } 
+    
+    public function login(){
+    	if($this->request->is('post')){
+    		$user = $this->Auth->identify();
+    		if($user){
+    			$this->Auth->setUser($user);
+    			return $this->redirect($this->Auth->redirectUrl());
+    		}
+    		$this->Flash->error('ユーザー名またはパスワードが不正です');
+    	}
+    }
+    		
 }
