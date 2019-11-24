@@ -40,7 +40,6 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
-
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
@@ -68,8 +67,7 @@ class AppController extends Controller
 	        ],
 	        'unauthorizedRedirect' => $this->referer()
 	    ]);
-	    $this->Auth->allow(['display','view','index']);
-
+	    $this->Auth->allow(['display','view','index'])
     }
     
     public function isAuthorized($user){
