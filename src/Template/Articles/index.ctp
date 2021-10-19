@@ -24,7 +24,7 @@
             <?= $this->Form->postLink(
                 '削除',
                 ['action' => 'delete', $article->slug],
-                ['confirm' => 'よろしいですか????'])
+                ['confirm' => 'よろしいですか???aa?'])
             ?>
         </td>
     </tr>
