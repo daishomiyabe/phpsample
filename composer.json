@@ -16,7 +16,7 @@
         "cakephp/cakephp-codesniffer": "^3.0",
         "cakephp/debug_kit": "^3.17.0",
         "josegonzalez/dotenv": "3.*",
-        "phpunit/phpunit": "5.7.*",
+        "phpunit/phpunit": "6.0.0",
         "psy/psysh": "@stable"
     },
     "suggest": {
@@ -37,7 +37,6 @@
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
-        "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
         "check": [
             "@test",
             "@cs-check"
